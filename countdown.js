@@ -28,6 +28,7 @@ window.onload = function(){
             //绘制
             render(context);
             update();
+            console.log(balls.length);
         },50);
 }
 
@@ -92,7 +93,7 @@ function updateBalls() {
         }
     }
     //删除小球
-    while(balls.length > cnt){
+    while(balls.length > Math.min(300,cnt)){
         balls.pop();
     }
 }
@@ -106,7 +107,7 @@ function addBalls(x,y,num) {
                     x:x+j*2*(RADIUS+1)+(RADIUS+1),
                     y:y+i*2*(RADIUS+1)+(RADIUS+1),
                     g:1.5+Math.random(),
-                    vx:Math.pow(-1,Math.ceil(Math.random()*1000))*4,
+                    vx:Math.pow(-1,Math.ceil(Math.random()*1000))*4+Math.pow(-1,Math.ceil(Math.random()*1000))*0.5,
                     vy:-(1+Math.random())*5,
                     color:colors[Math.floor(Math.random()*colors.length)]
                 }
