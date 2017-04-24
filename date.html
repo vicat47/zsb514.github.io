@@ -35,10 +35,13 @@
                 hour = time.getHours();
                 var timeC=(time.getTime()-startTime)/1000/60/60/24;
                 var cg = document.getElementById("careerG");
+                var xm = document.getElementById("xiangmu");
                 if(parseInt(timeC/7%2)==0){
                     cg.style.visibility="hidden";
+                    xm.style.visibility="visible";
                 }else{
                     cg.style.visibility="visible";
+                    xm.style.visibility="hidden";
                 }
                 var timeCompare = 0;
                 var timeCompareEnd = 0;
@@ -156,8 +159,8 @@
             <tr>
                 <td class="mon">ASP.net程序设计</td>
                 <td id="careerG" class="tue">就业指导</td>
-                <td class="wed"></td>
-                <td class="thr"></td>
+                <td id="xiangmu" class="wed">项目管理</td>
+                <td class="thr">项目管理</td>
                 <td>软件工程</td>
             </tr>
             <tr>
@@ -165,7 +168,7 @@
                 <td class="tue">管理信息系统(3)</td>
                 <td class="wed">软件工程</td>
                 <td class="thr">ASP.net程序设计(3)</td>
-                <td class="fri">项目管理(3)</td>
+                <td class="fri"></td>
             </tr>
         </table>
     </body>
