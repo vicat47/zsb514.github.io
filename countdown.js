@@ -3,7 +3,7 @@ var WINDOW_HEIGHT = 768;
 var RADIUS = 8;
 var MARGIN_TOP = 60;
 var MARGIN_LEFT = 30;
-const endTime = new Date(2017,3,25,2,0);
+//const endTime = new Date(2017,3,25,2,0);
 var curShowTimeSeconds = 0;
 var balls = [];//彩色小球
 const colors = ["#CD00CD","#BBFFFF","#9AFF9A","#8B0A50","#8A2BE2","#00BFFF","#EE9A49","#FF4040","#000000","#7FFFD4"];
@@ -119,12 +119,15 @@ function addBalls(x,y,num) {
 
 //获取当前时间距设定时间的时间
 function getCurShowTimeSeconds() {
+    // var curTime = new Date();
+    // //计算毫秒数
+    // var ret = endTime.getTime() - curTime.getTime();
+    // //转化为秒
+    // ret = Math.round(ret/1000);
+    //改为计时器
     var curTime = new Date();
-    //计算毫秒数
-    var ret = endTime.getTime() - curTime.getTime();
-    //转化为秒
-    ret = Math.round(ret/1000);
-    return ret >= 0? ret : 0;
+    var ret = curTime.getHours()*3600+curTime.getMinutes()*60+curTime.getSeconds();
+    return ret;
 }
 
 //定义绘制方法
@@ -157,7 +160,7 @@ function render(cxt){
 }
 //绘制数字
 function renderDigit(x,y,num,cxt){
-    cxt.fillStyle = "rgb(255,123,0)";
+    cxt.fillStyle = "rgb(255,0,0)";
     //遍历digit[num]，并在1位置绘制圆球
     for(var i = 0;i < digit[num].length;i++){
         for(var j = 0;j < digit[num][i].length;j++){
