@@ -180,5 +180,5 @@ function mouseMove(event,canvas){
     var nextX = canvas.width/2-canvas.width-event.clientX;
     var nextY = canvas.height/2-canvas.height-event.clientY;
     MARGIN_LEFT = 0.3*nextX + 0.425*canvas.width;
-    MARGIN_TOP = 0.2*nextY+0.3*canvas.height;
+    MARGIN_TOP = 0.2*nextY+0.425*canvas.height;
 }
