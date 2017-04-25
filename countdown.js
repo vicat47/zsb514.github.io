@@ -182,3 +182,8 @@ function mouseMove(event,canvas){
     MARGIN_LEFT = 0.3*nextX + 0.425*canvas.width;
     MARGIN_TOP = 0.2*nextY+0.425*canvas.height;
 }
+//鼠标退出
+function mouseOut(){
+    MARGIN_LEFT = Math.round(WINDOW_WIDTH/10);
+    MARGIN_TOP = Math.round(WINDOW_HEIGHT/5);
+}
