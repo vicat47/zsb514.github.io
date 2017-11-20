@@ -64,13 +64,16 @@ const getNowTime = function () {
 
 const tableInit = function () {
     let s = $("#major").find(":selected").val()
+    $(".public").show();
     switch (s) {
         case "computer" : 
-            $(".notMine").find("span").hide();
+            $(".others").hide();
+            $(".computer").show();
             setCookie("select", "computer", 10000, "/");
             break;
         case "others" : 
-            $(".notMine").find("span").show();
+            $(".others").show();
+            $(".computer").hide();
             setCookie("select", "others", 10000, "/");
             break;
     }
