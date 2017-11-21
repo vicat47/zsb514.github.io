@@ -10,7 +10,7 @@ $(function () {
 
     let nowNumber = getNowChangeNumber(compareDate);
     
-    changeStyle(compareDate, nowTime.time);
+    changeStyle(nowNumber, nowTime.time);
 })
 
 const getNowChangeNumber = function (date) {
@@ -27,7 +27,9 @@ const getNowChangeNumber = function (date) {
 
 const changeStyle = function (nowNumber,time) {
 
-    let now = Number(time.split(":"));
+    let now = Number(time.split(":")[0]);
+
+    log(now)
 
     let tr = $("tbody").find("tr");
     $($("th").get(nowNumber)).css("background-color","red");
@@ -43,7 +45,7 @@ const changeStyle = function (nowNumber,time) {
         return;
     }
 
-    $(tr.get(now).find("td").get(nowNumber)).css("background-color","red")
+    $($(tr[now]).find("td").get(nowNumber)).css("background-color","red")
 }
 
 const getNowTime = function () {
@@ -52,7 +54,7 @@ const getNowTime = function () {
 
     let nowTime = {
         week : ds[0],
-        month : ds[1],
+        month : date.getMonth() + 1,
         day : ds[2],
         year : ds[3],
         time : ds[4],
