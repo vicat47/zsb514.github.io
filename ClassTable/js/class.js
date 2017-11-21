@@ -1,5 +1,7 @@
 $(function () {
 
+    ddlInit();
+
     tableInit();
 
     bindEvents();
@@ -85,4 +87,8 @@ const bindEvents = function () {
     $("#major").change(function () {
         tableInit()
     })
+}
+
+const ddlInit = function () {
+    $("#major").val(getCookie("select"));
 }
