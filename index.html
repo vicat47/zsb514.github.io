@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Linux-通过-Clash-来网上冲浪-linux通过clash来科学上网" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/05/19/Linux-%E9%80%9A%E8%BF%87-Clash-%E6%9D%A5%E7%BD%91%E4%B8%8A%E5%86%B2%E6%B5%AA-linux%E9%80%9A%E8%BF%87clash%E6%9D%A5%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" class="article-date">
+  <time class="dt-published" datetime="2021-05-19T05:41:52.000Z" itemprop="datePublished">2021-05-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/05/19/Linux-%E9%80%9A%E8%BF%87-Clash-%E6%9D%A5%E7%BD%91%E4%B8%8A%E5%86%B2%E6%B5%AA-linux%E9%80%9A%E8%BF%87clash%E6%9D%A5%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/">Linux 通过 Clash 来网上冲浪-linux通过clash来科学上网</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h1 id="0-概述"><a href="#0-概述" class="headerlink" title="0. 概述"></a>0. 概述</h1><p>当今社会，在网上冲浪时，如果没有一把趁手的兵器，那确实是少了几分乐趣，总会遇到各种的围追堵截，404一类的错误。在Windows上，趁手的兵器很好找，但是在开源的Linux上，那就是一种折磨。</p>
+<p>所以本次我们要在Linux服务器上，通过Clash来开启一段网上冲浪的旅程。</p>
+<p>本教程适用于：Linux大多数发行版（可安装docker） 树莓派（所有armv7架构cpu）</p>
+<h1 id="1-前戏"><a href="#1-前戏" class="headerlink" title="1. 前戏"></a>1. 前戏</h1><p>首先，需要安装所需的软件，在21世纪20年代的今天，使用Docker来安装和部署一个软件无疑是<strong>最方便，最纯净</strong>的一种体验。本教程首先需要安装docker和docker-compose。如果没有听说过docker，只要类比下，docker是一个极其轻量的虚拟机就好了（其实底层完全不同）</p>
+<h2 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h2><p>关于docker的安装此处不再赘述，需要的可前往<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/">docker安装文档</a>来安装docker。</p>
+<h2 id="docker-compose-嫌弃前戏太长的可以直接快进到正戏-结局1"><a href="#docker-compose-嫌弃前戏太长的可以直接快进到正戏-结局1" class="headerlink" title="docker-compose(嫌弃前戏太长的可以直接快进到正戏-结局1)"></a>docker-compose(嫌弃前戏太长的可以直接快进到正戏-结局1)</h2><p>docker-compose是一个管理一群docker的东西，需要安装可以前往<a target="_blank" rel="noopener" href="https://docs.docker.com/compose/install/">docker-compose安装文档</a>选择对应版本安装<code>docker-compose</code>。网站全英文，只要复制粘贴命令即可。</p>
+<blockquote>
+<p>注意：docker-compose仅有amd编译版本，如要使用树莓派/安卓机等arm架构设备，需要通过pip来曲线救国。</p>
+</blockquote>
+<hr>
+<p>在<code>docker</code>和<code>docker-compose</code>安装完毕后，可通过<code>docker -v</code>和<code>docker-compose -v</code>来检验安装结果。</p>
+<h1 id="2-正戏"><a href="#2-正戏" class="headerlink" title="2. 正戏"></a>2. 正戏</h1><p>在拥有<code>docker</code>和<code>docker-compose</code>后，整个流程就已经结束了大半。余下的就是对容器的操作了。直接命令行走起。</p>
+<h2 id="Clash"><a href="#Clash" class="headerlink" title="Clash"></a>Clash</h2><p>Clash需要一个名为 <code>config.yaml</code> 的配置文件来配置需要访问的目标，如果不通过<code>docker</code>运行的话，默认是在<code>~/.config/clash/config.yaml</code>这里的。如果你在使用PC版本的Clash的话，可以复制这个配置文件到服务器中。</p>
+<blockquote>
+<p>注意：如果您的配置文件中有使用了<code>RULE-SET</code>的字样，需要使用<a target="_blank" rel="noopener" href="https://github.com/Dreamacro/clash/releases/tag/premium">Premium</a>版本，并将镜像替换为<a target="_blank" rel="noopener" href="https://hub.docker.com/r/dreamacro/clash-premium">dreamacro/clash-premium</a>，或者是删除这些内容。</p>
+</blockquote>
+<p>如果没有，具体的配置在<a target="_blank" rel="noopener" href="https://github.com/Dreamacro/clash/wiki/configuration">项目wiki</a>中有详细介绍。</p>
+<h3 id="关键配置"><a href="#关键配置" class="headerlink" title="关键配置"></a>关键配置</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">port:</span> [<span class="string">http代理的端口</span>]</span><br><span class="line"><span class="attr">socks-port:</span> [<span class="string">sock5代理端口</span>]</span><br><span class="line"><span class="attr">redir-port:</span> [<span class="string">需要重定向的端口</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 允许局域网访问，即可通过本机回环地址外的地址访问</span></span><br><span class="line"><span class="attr">allow-lan:</span> <span class="literal">true</span>  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 外部RESTful API端口，这个在之后的流程中会使用到</span></span><br><span class="line"><span class="attr">external-controller:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span><span class="string">:9090</span></span><br></pre></td></tr></table></figure>
+
+<p>其余代理配置请参考<a target="_blank" rel="noopener" href="https://github.com/Dreamacro/clash/wiki/configuration">官方配置文件</a></p>
+<h2 id="Clash-webUI"><a href="#Clash-webUI" class="headerlink" title="Clash_webUI"></a>Clash_webUI</h2><p>yacd是一个通过REST api来管理Clash的工具，它需要配置的，仅有Clash REST api的url和端口，并且页面需要可以访问到这个url。</p>
+<blockquote>
+<p>注意：这个WebUI可以管理任何暴露在外网的REST接口，所以这就意味着，它访问的链接是本机所能访问到的链接。也就是说：需要访问WebUI的主机能够访问到Clash的REST API。</p>
+</blockquote>
+<h2 id="准备镜像"><a href="#准备镜像" class="headerlink" title="准备镜像"></a>准备镜像</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1. 获取clash的镜像</span></span><br><span class="line">docker pull dreamacro/clash</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. 获取WebUI的镜像</span></span><br><span class="line">docker pull haishanh/yacd</span><br></pre></td></tr></table></figure>
+
+<h3 id="结局1"><a href="#结局1" class="headerlink" title="结局1"></a>结局1</h3><p>其实到此为止，直接运行即可，此处也直接提供<code>docker run</code>命令以供不想安装<code>docker-compose</code>的人直接运行。但是这个方式没有Compose那么舒服</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1. 运行clash</span></span><br><span class="line">docker run -d --name=clash --restart=always --network=&#x27;host&#x27; -v [配置文件路径]:/root/.config/clash dreamacro/clash</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. 运行WebUI</span></span><br><span class="line">docker run -d -p [想要开放的端口]:80 --name=clash_webui --restart=always haishanh/yacd</span><br></pre></td></tr></table></figure>
+
+<p><strong>但是！</strong><br><img src="/images/d58b6004ee496bd65d4a09adf7c29d8c-2bb4cd3ee0d640f39d03c5a3bda9bc12.jpg" alt="这好吗？"><br>这不好。虽然看起来，两者都运行起来了，但是！它俩很独立。它俩没有以和为贵，没有在一起。所以，我们配置<code>docker-compose</code>来让它俩一起运行，一起停止。</p>
+<h1 id="2-正戏进阶"><a href="#2-正戏进阶" class="headerlink" title="2+. 正戏进阶"></a>2+. 正戏进阶</h1><p>配置使用 <code>docker-compose</code> 启动</p>
+<p>使用<code>docker-compose</code>有如下几个好处：</p>
+<ol>
+<li>能够保留配置信息，持久化为<code>yaml</code>，再也不用担心<code>docker run</code>命令忘了咋写的尴尬境地了！</li>
+<li>能够同时启停，方便管理。</li>
+<li>能够自动创建docker网络，免去后续需要使用科学上网的容器的<code>--link</code>操作。</li>
+</ol>
+<p><img src="/images/docker-compose%E5%A4%AA%E5%A5%BD%E4%BA%86-9871cb322f064f3a96a3d20c4b86b0c0.jpg" alt="dockercompose太好了.jpg"></p>
+<p>因为<code>docker-compose</code>需要一个<code>yaml</code>文件来启动和停止服务，所以按照如下内容编写</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker-compose版本</span></span><br><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.7&#x27;</span></span><br><span class="line"><span class="comment"># 服务列表</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">    <span class="comment"># clash后台服务</span></span><br><span class="line">    <span class="attr">clash:</span></span><br><span class="line">        <span class="comment"># 设置image</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">dreamacro/clash</span></span><br><span class="line">        <span class="comment"># 停止了总是重启</span></span><br><span class="line">        <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">        <span class="attr">volumes:</span></span><br><span class="line">            <span class="comment"># 将配置文件挂载到容器中</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/root/.config/clash:/root/.config/clash</span></span><br><span class="line">        <span class="attr">container_name:</span> <span class="string">clash</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">            <span class="comment"># 这些端口都在配置文件中配置过，容器外地址可随心情配置</span></span><br><span class="line">            <span class="bullet">-</span> [<span class="string">容器外http代理端口</span>]<span class="string">:[容器内http代理端口，默认7890]</span></span><br><span class="line">            <span class="bullet">-</span> [<span class="string">容器外sock5代理端口</span>]<span class="string">:[容器内sock5代理端口，默认7890]</span></span><br><span class="line">            <span class="bullet">-</span> [<span class="string">容器外REST</span> <span class="string">API端口</span>]<span class="string">:[容器内REST</span> <span class="string">API端口，默认9090]</span></span><br><span class="line">    <span class="attr">clash_web:</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">haishanh/yacd</span></span><br><span class="line">        <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">        <span class="attr">depends_on:</span></span><br><span class="line">            <span class="comment"># 依赖于上面的clash服务，在clash启动后，web才启动</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">clash</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> [<span class="string">容器外web访问端口</span>]<span class="string">:80</span></span><br><span class="line">        <span class="attr">container_name:</span> <span class="string">clash_web</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>编写完成后仅需要在目录下执行<code>docker-compose up -d</code>即可看到运行结果</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br><span class="line"><span class="meta">#</span><span class="bash"> 输出内容</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Starting clash ... <span class="keyword">done</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Starting clash_web ... <span class="keyword">done</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="停止"><a href="#停止" class="headerlink" title="停止"></a>停止</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker-compose stop</span><br><span class="line"><span class="meta">#</span><span class="bash"> 输出内容</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Stopping clash_web ... <span class="keyword">done</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Stopping clash     ... <span class="keyword">done</span></span></span><br></pre></td></tr></table></figure>
+
+<p>至此，我们的clash已经部署在容器中，只要访问web端即可查看到clash的运行状态了</p>
+<blockquote>
+<p>如果无法访问，请查看网络是否连通，防火墙是否放行，云服务器的策略是否正确</p>
+</blockquote>
+<h1 id="3-使用"><a href="#3-使用" class="headerlink" title="3. 使用"></a>3. 使用</h1><h2 id="3-1-配置系统代理"><a href="#3-1-配置系统代理" class="headerlink" title="3.1 配置系统代理"></a>3.1 配置系统代理</h2><p>Linux通过修改环境变量来使用代理，主要是在环境变量中添加如几条，在命令行中执行如下语句：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 配置http和https代理</span></span><br><span class="line">http_proxy=http://clash客户端IP:clash客户端端口</span><br><span class="line">https_proxy=http_proxy</span><br><span class="line"><span class="meta">#</span><span class="bash"> ftp代理看需求配置</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ftp_proxy= http_proxy</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 对以下内容不使用代理</span></span><br><span class="line">no_proxy=192.168..,172.16..,.local,localhost,127.0.0.1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 导出环境变量</span></span><br><span class="line">export http_proxy https_proxy no_proxy</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">export</span> ftp_proxy</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使得环境变量生效</span></span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-通过Web端切换代理"><a href="#3-2-通过Web端切换代理" class="headerlink" title="3.2 通过Web端切换代理"></a>3.2 通过Web端切换代理</h2><ol>
+<li>访问Web端网址<br><img src="/images/image-660ffef95c2a4d3d8a8b1e9ee70c0c53.png" alt="image.png"></li>
+</ol>
+<blockquote>
+<p>这里需要注意，需要配置<code>api base url</code>为你clash的<code>web api</code>地址，请填写你服务器的｀<a href="http://ip或域名：端口号｀，并且确保这个ip是**公网可访问**的，因为这个Web端管理工具是通过公网访问">http://ip或域名：端口号｀，并且确保这个ip是**公网可访问**的，因为这个Web端管理工具是通过公网访问</a> web api 来配置代理的</p>
+</blockquote>
+<ol start="2">
+<li>切换你的代理，尽情冲浪吧！</li>
+</ol>
+<h1 id="4-测试"><a href="#4-测试" class="headerlink" title="4. 测试"></a>4. 测试</h1><p>服务终于搭好了，测试下到底有没有科学上到网呢？通过<code>curl</code>进行测试。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -x 127.0.0.1:7890 http://www.google.com</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="5-容器内科学上网"><a href="#5-容器内科学上网" class="headerlink" title="5. 容器内科学上网"></a>5. 容器内科学上网</h1><p>有些同志们可能和我一样，对系统有些许的洁癖。如果能够使用容器为容器提供网络服务，并配置其余容器科学上网，岂不美哉？<br><img src="/images/%E5%B2%82%E4%B8%8D%E7%BE%8E%E5%93%89-44ffce7e60554de689287300d452cacb.jpg" alt="岂不美哉.jpg"><br>确实，那就<strong>直接开干</strong>！</p>
+<blockquote>
+<p>本章节涉及容器网络内容，可能会遇到如下问题 ——&gt;<br><img src="/images/github_404-c5b8414972804b1bac361eb26abc40f8.jpeg" alt="github_404.jpeg"><img src="/images/github_500-b971407960d24c79b317a59d987135ac.jpg" alt="github_500.jpg"><img src="/images/github_maintain-a8ee4887c01c4108a259b35d8141c62b.jpg" alt="github_maintain.jpg"><br>但是我们都是受过专业训练的，放平心态即可，实在不行可以在评论区来摇人</p>
+</blockquote>
+<h2 id="5-1-通过link来配置容器网络"><a href="#5-1-通过link来配置容器网络" class="headerlink" title="5.1 通过link来配置容器网络"></a>5.1 通过<code>link</code>来配置容器网络</h2><p>此方法官方不推荐，并在未来版本会被废弃，但是<strong>极其简单</strong>。如果你和博主一样是性情中人，同时是个懒批，而且想让官方去她🐴的，那这个方法必然是你的不二之选。</p>
+<p>首先，你如果是通过命令行配置的容器，那么，只要将你先前的命令行，替换成如下形式即可</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 启动clash的指令</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> --network=<span class="string">&#x27;host&#x27;</span> 不可用，因为我们要保持网络环境的干净整洁</span></span><br><span class="line">docker run -d -p [你想暴露的http代理端口]:7890 -p[你想暴露的sock5代理端口]:7891 -p[你想暴露的rest接口端口]:9090 --name=clash --restart=always -v [配置文件路径]:/root/.config/clash dreamacro/clash</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动其他容器的指令</span></span><br><span class="line">docker run --link clash [你的其他指令]</span><br></pre></td></tr></table></figure>
+<p>之后就可以按照其他容器中应用代理配置方法来配置代理了，需要注意的是，之前形如<code>http://127.0.0.1:7890</code>的东西就需要被替换为<code>http://clash:7890</code>了。</p>
+<p>很简单，很直接，很单纯，很暴力，<strong>但就是有用</strong>😁</p>
+<h2 id="5-2-通过network配置容器网络"><a href="#5-2-通过network配置容器网络" class="headerlink" title="5.2 通过network配置容器网络"></a>5.2 通过<code>network</code>配置容器网络</h2><p>这个方法是官方推荐的容器间网络互通的方法，但是麻烦，懒批是最不应该选这种的，但是也姑且说下，执行如下指令即可</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1. 创建一个网络</span></span><br><span class="line">docker network create [你要起的网络名，这里叫做张三吧]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. 将你之前的clash容器加入这个网络,请更换启动指令</span></span><br><span class="line">docker run -d --network 张三 -p [你想暴露的http代理端口]:7890 -p[你想暴露的sock5代理端口]:7891 -p[你想暴露的rest接口端口]:9090 --name=clash --restart=always -v [配置文件路径]:/root/.config/clash dreamacro/clash</span><br><span class="line"><span class="meta">#</span><span class="bash"> 3. 其他的需要使用科学上网的容器也要使用这个network设置</span></span><br><span class="line">docker run --network 张三 [你的其他指令]</span><br></pre></td></tr></table></figure>
+<p>这样就可以科学上网了，确实麻烦，确实憨批。</p>
+<h2 id="5-3-通过docker-compose-yaml配置容器网络（福报！）"><a href="#5-3-通过docker-compose-yaml配置容器网络（福报！）" class="headerlink" title="5.3 通过docker-compose.yaml配置容器网络（福报！）"></a>5.3 通过<code>docker-compose.yaml</code>配置容器网络（福报！）</h2><p>如果你之前没有做一个懒批，那么这位朋友，你有福气了！因为<code>docker-compose</code>会自动为你维护一个容器网络！为了将懒批的行为贯彻到底，我们必然不会自己再去创建网络了。<br><img src="/images/416b8ac9512ff960bb904580e712d3fb-136146aea42b4fe1beed5d24696d2639.jpeg" alt="416b8ac9512ff960bb904580e712d3fb.jpeg"><br>这个网络的默认名字叫做<code>[你的文件夹名]_default</code>。如果你的<code>docker-compose.yaml</code>所在文件夹为<code>张三</code>，那就意味着，你的网络就叫做<code>张三_default</code>。之后启动的容器仅仅需要加入这个网络就行了。</p>
+<p><strong>需要上网容器配置</strong></p>
+<ul>
+<li><p>通过命令行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --network 张三_default [其他指令]</span><br></pre></td></tr></table></figure></li>
+<li><p>通过<code>docker-compose</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面略写，照常配置</span></span><br><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.7&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">    <span class="attr">xxxx:</span></span><br><span class="line">        <span class="attr">xxx:</span> <span class="string">xxx</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 关键点： network</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">    <span class="attr">default:</span></span><br><span class="line">        <span class="comment"># 声明该网络为外部已存在网络</span></span><br><span class="line">        <span class="attr">external:</span></span><br><span class="line">            <span class="attr">name:</span> <span class="string">张三_default</span></span><br></pre></td></tr></table></figure>
+<p>这样就好啦</p>
+</li>
+</ul>
+<h1 id="6-配置Nginx代理"><a href="#6-配置Nginx代理" class="headerlink" title="6. 配置Nginx代理"></a>6. 配置Nginx代理</h1><p>请参考我的上一篇博客<a target="_blank" rel="noopener" href="https://blog.vicat.top/archives/nginx80%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%9F%9F%E5%90%8D%E5%AE%9E%E7%8E%B0ip%E7%AB%AF%E5%8F%A3%E9%9A%90%E8%97%8F">nginx80端口转发</a>来配置nginx实现域名访问。写的确实不咋地，看不懂可以在评论区留个言</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://zmcdbp.com/run-clash-in-docker/">怎么吃都不胖 . 在Docker中使用Clash . 2019-03-05/2020-12-29</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/05/19/Linux-%E9%80%9A%E8%BF%87-Clash-%E6%9D%A5%E7%BD%91%E4%B8%8A%E5%86%B2%E6%B5%AA-linux%E9%80%9A%E8%BF%87clash%E6%9D%A5%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" data-id="ckov1wer30000hklx61vl21ea" data-title="Linux 通过 Clash 来网上冲浪-linux通过clash来科学上网" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/05/19/hello-world/" class="article-date">
+  <time class="dt-published" datetime="2021-05-19T05:32:31.836Z" itemprop="datePublished">2021-05-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/05/19/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/05/19/hello-world/" data-id="ckov1wera0001hklxfnh15jct" data-title="Hello World" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/05/19/Linux-%E9%80%9A%E8%BF%87-Clash-%E6%9D%A5%E7%BD%91%E4%B8%8A%E5%86%B2%E6%B5%AA-linux%E9%80%9A%E8%BF%87clash%E6%9D%A5%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/">Linux 通过 Clash 来网上冲浪-linux通过clash来科学上网</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/19/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
